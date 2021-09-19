@@ -17,7 +17,7 @@ class Command(BaseCommand):
         count = options['count']
 
         for i in range(count):
-            Author.objects.create(name=fake.name(), age=fake.random_int(min=0, max=99))
+            Author.objects.create(name=fake.name(), age=fake.random_int(min=15, max=99))
 
         for i in range(count):
             Publisher.objects.create(name=fake.company())
@@ -30,9 +30,11 @@ class Command(BaseCommand):
                                     publisher=el, pubdate=fake.date())
 
         for i in range(round(count/2)):
-            book = Book.objects.all()
-            id_ = random.shuffle(book[:fake.random_int(min=1, max=len(book))])
-            (Store.objects.create(name=fake.company())).book.set(id_)
+            books = Book.objects.all()
+            store = Store.objects.create(name=fake.company())
+            id_ = books[:fake.random_int(min=1, max=len(books))]
+            random.shuffle(id_)
+            store.books.set(id_)
 
         list_book_id = list(Book.objects.values_list('id', flat=True))
         list_author_id = list(Author.objects.values_list('id', flat=True))
