@@ -1,0 +1,8 @@
+{% extends "main.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>You are on the home page!</h1>
+    <p><a href="{% url 'books_list' %}">Books list</a></p>
+{% endblock %}

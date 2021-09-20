@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block title %}List of authors{% endblock %}
+
+{% block content %}
+        <div>
+            <p>Average rating of all the books we have written by authors: {{ avg_rating }}</p>
+            <h1>List of authors:</h1>
+        </div>
+        <table>
+            <caption><h2>Authors</h2></caption>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Books</th>
+            </tr>
+            {% for author in authors %}
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.age }}</td>
+                    <td>{{ author.book_set.all|length }} </td>
+                </tr>
+            {% endfor %}
+        </table>
+    <p><a href="{% url 'index' %}">Go to main page</a></p>
+{% endblock %}
