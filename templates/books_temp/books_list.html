@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+
+{% block title %}List of books{% endblock %}
+
+{% block content %}
+        <p><a href="{% url 'index' %}">Go to main page</a></p>
+        <p><a href="{% url 'book-create' %}"> Create Book</a></p>
+        <div>
+            <h1>List of books:</h1>
+        </div>
+        <table>
+            <caption><h2>Books</h2></caption>
+        <tr>
+            <th>Name</th>
+            <th>Pages</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>Publisher</th>
+            <th>Publication date</th>
+            <th>Number of authors</th>
+        </tr>
+            {% for author in authors %}
+                    <td><a href="{% url 'books_detail' pk=book.pk %}"> {{ book.name }}</a></td>
+                    <td>{{ book.pages }}</td>
+                    <td>{{ book.price }}</td>
+                    <td>{{ book.rating }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td>{{ book.pubdate }}</td>
+                    <td>{{ book.num_authors }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

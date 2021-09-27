@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block title %}List of publishers{% endblock %}
+
+{% block content %}
+    <p><a href="{% url 'index' %}">Go back to the home page</a></p>
+    {% if publishers %}
+        <div>
+            <h1>List of publishers:</h1>
+        </div>
+        <table>
+        <caption>List of publishers:</caption>
+        <tr>
+            <th>Name</th>
+            <th>Count of books</th>
+        </tr>
+        {% for publisher in publishers %}
+            <tr>
+                <td>{{ publisher.name }}</td>
+                <td>{{ publisher.num_books }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block title %}Author information{% endblock %}
+
+{% block content %}
+    <div>
+        <p><a href="{% url 'authors' %}">Go back to the list of authors</a></p>
+        <h1>Author: {{ author.name }}, age: {{ author.age }} </h1>
+        <p>Number of his books: {{ author.book_set.count }}</p>
+        <table>
+            <caption>List of books:</caption>
+            <tr>
+                <th>Name</th>
+                <th>Pages</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Publisher</th>
+                <th>Publication date</th>
+            </tr>
+            {% for book in books %}
+                <tr>
+                <td><a href="{% url 'books_detail' pk=book.id %}"> {{ book.name }}</a></td>
+                <td>{{ book.pages }}</td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.rating }}</td>
+                <td>{{ book.publisher }}</td>
+                <td>{{ book.pubdate }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    <p><a href="{% url 'index' %}">Go to main page</a></p>
+    </div>
+{% endblock %}

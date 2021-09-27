@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block title %}Update book{% endblock %}
+
+{% block content %}
+    <h1>Update Book</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Update book">
+        <p><a href="{% url 'index' %}">Go to main page</a></p>
+    </form>
+{% endblock %}

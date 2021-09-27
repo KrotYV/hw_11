@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block title %}List of stores{% endblock %}
+
+{% block content %}
+    <p><a href="{% url 'index' %}">Go back to the home page</a></p>
+    {% if stores %}
+        <h1>List of stores:</h1>
+        <table>
+            <caption>List of stores:</caption>
+            <tr>
+                <th>Name</th>
+                <th>Count of books</th>
+            </tr>
+            {% for store in stores %}
+                <tr>
+                    <td>{{ store.name }}</td>
+                    <td>{{ store.num_books }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

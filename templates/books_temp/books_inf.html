@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block title %}Selected book<{% endblock %}
+
+{% block content %}
+    <p><a href="{% url 'books' %}">Go back to the list of books</a></p>
+    <h1>Book: {{ book.name }}</h1>
+    <table>
+        <caption>{{ book.name }}</caption>
+        <tr>
+            <th>Pages</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Publication date</th>
+            <th>Store</th>
+        </tr>
+        <tr>
+            <td>{{ book.pages }}</td>
+            <td>{{ book.price }}</td>
+            <td>{{ book.rating }}</td>
+            <td>
+                {% for author in book.authors.all %}
+                    <a href="{% url 'authors_detail' pk=author.pk %}">{{ author.name }}
+                {% endfor %}
+            </td>
+            <td><a href="{% url 'publishers_detail' pk=book.publisher.pk %}">{{ book.publisher }}</a></td>
+            <td>{{ book.pubdate }}</td>
+            <td>
+                {% for store in book.store_set.all %}
+                    <a href="{% url 'stores_detail' pk=store.pk %}">{{ store.name }}</a>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+    <button type="button"><a href="../../book/update/{{ book.id }}">Update</a></button>
+    <button type="button"><a href="{% url 'book-create' %}">Create new book</a></button>
+    <button type="button"><a href="../../book/delete/{{ book.id }}">Delete</a></button>
+{% endblock %}

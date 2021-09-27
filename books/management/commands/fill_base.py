@@ -10,8 +10,9 @@ fake = Faker()
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument('count', type=int, choices=range(1, 1000), help='Number of records for Author and Publisher'
-                                                                            '(from 1 to 1000)')
+        parser.add_argument('count', type=int, choices=range(1, 10000), help='Number of records for Author '
+                                                                             'and Publisher'
+                                                                             '(from 1 to 10000)')
 
     def handle(self, *args, **options):
         count = options['count']
@@ -23,7 +24,7 @@ class Command(BaseCommand):
             Publisher.objects.create(name=fake.company())
 
         for el in Publisher.objects.all():
-            for i in range(3):
+            for i in range(fake.random_int(min=1, max=10)):
                 Book.objects.create(name=fake.sentence(nb_words=4), pages=fake.random_int(min=100, max=800),
                                     price=fake.pydecimal(right_digits=2, min_value=10, max_value=800),
                                     rating=fake.pyfloat(right_digits=1, min_value=0, max_value=10),
