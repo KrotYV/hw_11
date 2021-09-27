@@ -25,11 +25,11 @@
                     <a href="{% url 'authors_detail' pk=author.pk %}">{{ author.name }}
                 {% endfor %}
             </td>
-            <td><a href="{% url 'publishers_detail' pk=book.publisher.pk %}">{{ book.publisher }}</a></td>
+            <td>{{ book.publisher }}</td>
             <td>{{ book.pubdate }}</td>
             <td>
                 {% for store in book.store_set.all %}
-                    <a href="{% url 'stores_detail' pk=store.pk %}">{{ store.name }}</a>
+                   {{ store.name }};
                 {% endfor %}
             </td>
         </tr>

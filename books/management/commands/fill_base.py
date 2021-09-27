@@ -10,9 +10,8 @@ fake = Faker()
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument('count', type=int, choices=range(1, 10000), help='Number of records for Author '
-                                                                             'and Publisher'
-                                                                             '(from 1 to 10000)')
+        parser.add_argument('count', type=int, choices=range(1, 1000), help='Number of records for Author and Publisher'
+                                                                            '(from 1 to 1000)')
 
     def handle(self, *args, **options):
         count = options['count']

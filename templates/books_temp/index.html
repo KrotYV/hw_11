@@ -5,6 +5,7 @@
 {% block content %}
     <h1>You are on the home page!</h1>
     <ul>
+        <li>Books: <a href="{% url 'books' %}">{{ num_books }}</a></li>
         <li>Authors: <a href="{% url 'authors' %}">{{ num_authors }}</a></li>
         <li>Publishers: <a href="{% url 'publishers' %}">{{ num_publishers }}</a></li>
         <li>Stores: <a href="{% url 'stores' %}">{{ num_stores }}</a></li>

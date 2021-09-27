@@ -3,22 +3,22 @@
 {% block title %}List of books{% endblock %}
 
 {% block content %}
-        <p><a href="{% url 'index' %}">Go to main page</a></p>
-        <p><a href="{% url 'book-create' %}"> Create Book</a></p>
+    <p><a href="{% url 'index' %}">Go to main page</a></p>
+    <p><a href="{% url 'book-create' %}"> Create Book</a></p>
         <div>
             <h1>List of books:</h1>
         </div>
         <table>
             <caption><h2>Books</h2></caption>
-        <tr>
-            <th>Name</th>
-            <th>Pages</th>
-            <th>Price</th>
-            <th>Rating</th>
-            <th>Publisher</th>
-            <th>Publication date</th>
-            <th>Number of authors</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Pages</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Publisher</th>
+                <th>Publication date</th>
+                <th>Number of authors</th>
+            </tr>
             {% for author in authors %}
                     <td><a href="{% url 'books_detail' pk=book.pk %}"> {{ book.name }}</a></td>
                     <td>{{ book.pages }}</td>
