@@ -3,11 +3,14 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
 from .models import Author, Book, Publisher, Store
 
 
+@cache_page(10)
 def authors(request):
     author = Author.objects.prefetch_related('book_set__authors')
     average_rating = Author.objects.aggregate(avg_rating=Avg('book__rating'))
@@ -15,16 +18,19 @@ def authors(request):
     return render(request, 'books_temp/authors_list.html', context)
 
 
+@cache_page(10)
 def publishers(request):
     publishers = Publisher.objects.all().annotate(num_books=Count('book'))
     return render(request, 'books_temp/publishers.html', {'publishers': publishers})
 
 
+@cache_page(10)
 def stores(request):
     stores = Store.objects.all().annotate(num_books=Count('books'))
     return render(request, 'books_temp/stores.html', {'stores': stores})
 
 
+@cache_page(10)
 def authors_detail(request, pk):
     author = get_object_or_404(Author, pk=pk)
     books = Book.objects.select_related('publisher')
@@ -71,14 +77,16 @@ class BookDelete(LoginRequiredMixin, DeleteView):
     login_url = '/admin/login/'
 
 
+@method_decorator(cache_page(10), name='dispatch')
 class BookDetail(DetailView):
     model = Book
     template_name = 'books_temp/books_inf.html'
 
 
+@method_decorator(cache_page(10), name='dispatch')
 class BookList(ListView):
     model = Book
     template_name = 'books_temp/books_list.html'
-    paginate_by = 10
+    paginate_by = 700
     queryset = Book.objects.annotate(num_authors=Count('authors')).select_related('publisher')
     context_object_name = 'books'
